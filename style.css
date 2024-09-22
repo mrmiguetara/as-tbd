@@ -1,0 +1,254 @@
+
+/* Reset default margins and paddings */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+  font-family: 'Cedarville Cursive', cursive;
+}
+
+/* body { */
+/*     background-color: #87CEEB; /* Light blue sky */ */
+/*     display: flex; */
+/*     flex-direction: column; */
+/*     justify-content: center; */
+/*     align-items: center; */
+/*     height: 100vh; */
+/*     overflow: scroll; /* Prevent scrollbars if petals move */ */
+/* } */
+body {
+  margin: 0;
+  padding: 0 0 0 0;
+  /* font-family: sans-serif; */
+  /* font-family: "Manrope", helvetiva, sans-serif; */
+  /* transition: background-color 1s; */
+  color: #fff;
+  /* background: linear-gradient(0deg, #100521 0%, #50357c 50%, #878290 100%); */
+  overflow: hidden;
+}
+.sunflower {
+    position: relative;
+    width: 300px;
+    height: 300px;
+}
+
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 250px;
+    height: 250px;
+    margin-left: -102px;
+    margin-top: 33px;
+    background: radial-gradient(circle at 30% 30%, #6B4423, #8B4513, #5C3317);
+    border-radius: 50%;
+    box-shadow: inset -5px -5px 10px rgba(0,0,0,0.3);
+    z-index: 100; /* Ensure center is always on top */
+}
+
+.petals {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+}
+
+.petal {
+    position: absolute;
+    width: 40px;
+    height: 160px;
+    background-color: #FFD700; /* Golden yellow petals */
+    border-radius: 50% 50% 20% 20%;
+    transform-origin: 50% 100%;
+    cursor: pointer;
+    /* Initial transform based on CSS variables */
+    transform: rotate(var(--angle)) translate(0, -120px);
+    /* Animation properties */
+    animation: sway 4s ease-in-out infinite;
+    animation-delay: calc(-0.1s * var(--i));
+    /* Z-index based on calculated value */
+    z-index: var(--z-index); /* Petals layering */
+    /* Add subtle shadow for depth */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    /* Transition for interactive animations */
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.stalk {
+    position: absolute;
+    background: green;
+    width: 10px;
+    height: 500px;
+    margin-top: 400px;
+    margin-left: 170px;
+    overflow: hidden;
+}
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #fff;
+  z-index: 999;
+}
+
+
+.long {
+    padding: 100px;
+}
+
+header h1 {
+  /* font-family: "Lack"; */
+  font-size: 4em;
+  text-align: center;
+  padding: 10px;
+  color: #100521;
+}
+
+.row-container .row:first-child {
+  opacity: 1;
+}
+.row-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+
+/* background: rgb(198,13,13); */
+/* background: linear-gradient(105deg, rgba(198,13,13,1) 0%, rgba(250,255,118,1) 45%, rgba(255,239,0,1) 64%); */
+background: rgb(255,120,0);
+background: linear-gradient(105deg, rgba(255,120,0,1) 0%, rgba(250,255,118,1) 45%, rgba(255,246,105,1) 64%);
+}
+
+.row {
+  opacity: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.row-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: sticky;
+  top: 0;
+  /* border: 1px solid yellow; */
+  padding: 0;
+  height: 100vh;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  flex: 50%;
+  padding: 10px;
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+.left-column {
+  background-color: transparent;
+}
+
+.right-column {
+  background-color: transparent;
+}
+
+h1 {
+  /* font-family: "Unbounded", helvetica, sans-serif; */
+}
+
+h1 {
+  margin: 0;
+  font-size: 36px;
+}
+
+h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+p {
+  margin: 10px 0;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+.fadeIn {
+  animation-name: fadeIn;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+.fadeOut {
+  animation-name: fadeOut;
+  animation-duration: .5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+/* Define the sway animation */
+@keyframes sway {
+    0%, 100% {
+        transform: rotate(calc(var(--angle) - 2deg)) translate(0, -120px);
+    }
+    50% {
+        transform: rotate(calc(var(--angle) + 2deg)) translate(0, -120px);
+    }
+}
+
+/* Hover effect to enhance interactivity */
+.petal:hover {
+    transform: rotate(var(--angle)) translate(0, -120px) scale(1.05);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Define the clicked animation */
+@keyframes rotate-petal {
+    from {
+        transform: rotate(var(--angle)) translate(0, -120px);
+    }
+    to {
+        transform: rotate(calc(var(--angle) + 360deg)) translate(0, -120px);
+    }
+}
+
+@keyframes shake {
+  0% { transform: rotate(calc(var(--angle) - 2deg)) translate(0, -120px) rotate(-2deg); }
+  20% { transform: rotate(calc(var(--angle) + 2deg)) translate(0, -120px) rotate(2deg); }
+  40% { transform: rotate(calc(var(--angle) - 2deg)) translate(0, -120px) rotate(-2deg); }
+  60% { transform: rotate(calc(var(--angle) + 2deg)) translate(0, -120px) rotate(2deg); }
+  80% { transform: rotate(calc(var(--angle) - 2deg)) translate(0, -120px) rotate(-2deg); }
+  100% { transform: rotate(calc(var(--angle) + 2deg)) translate(0, -120px) rotate(2deg); }
+}
+
+/* Apply the animation when the 'clicked' class is active */
+.petal.clicked {
+  animation: shake 0.5s ease-in-out forwards;
+
+}

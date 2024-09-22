@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Realistic Sunflower with Wind Animation</title>
+    <link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- First row -->
+    <div class="row-container">
+      <div class="row section">
+        <div class="column-inner">
+                <h1>Yellow Sunflowers</h1>
+                <h2> From: Miguel A. González</h2>
+                <h2> To: Adriana Sepúlveda</h2>
+        </div>
+      </div>
+
+      <!-- Second row -->
+      <div class="row section">
+        <div class="column-inner long">
+            <h1> El día de hoy tenía que darte flores amarillas, pero la distancia no me permitió entregártela. </h1>
+        </div>
+      </div>
+
+      <!-- Third row -->
+      <div class="row section">
+        <div class="column-inner">
+            <h1> Esta es para tí </h1>
+        </div>
+      </div>
+
+      <!-- Fourth row -->
+      <div class="row section">
+          <div class="column-inner">
+          <h1>Disfrútalas!</h1>
+            <div class="sunflower">
+                <div class="center"></div>
+                <div class="petals"></div>
+                <div class="stalk">
+                    
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JavaScript to generate petals and handle animations -->
+    <script>
+        window.addEventListener("load", (event) => {
+  let options = {
+    rootMargin: "0px",
+    threshold: 0.8
+  };
+
+  const intersectionHandler = function(entries, observer) {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting && entry.intersectionRatio > 0.8) {
+        entry.target.classList.remove("fadeOut");
+        entry.target.classList.add("fadeIn");
+      } else {
+        entry.target.classList.remove("fadeIn");
+        entry.target.classList.add("fadeOut");
+      }
+    });
+  };
+
+  let observer = new IntersectionObserver(intersectionHandler, options);
+  document.querySelectorAll(".section").forEach((row, index) => {
+    observer.observe(row);
+  });
+});
+        document.addEventListener('DOMContentLoaded', () => {
+            const petalsContainer = document.querySelector('.petals');
+            const center = document.querySelector('.center');
+            const totalPetals = 30; // Increased number of petals for fullness
+            const angleIncrement = 360 / totalPetals;
+            const petals = [];
+
+            for (let i = 0; i < totalPetals; i++) {
+                const petal = document.createElement('div');
+                petal.classList.add('petal');
+                const angle = i * angleIncrement;
+                petal.setAttribute('data-angle', angle);
+                petal.setAttribute('data-index', i);
+                petalsContainer.appendChild(petal);
+                petals.push(petal);
+            }
+
+            // Set CSS variables for each petal
+            petals.forEach((petal, index) => {
+                const angle = parseFloat(petal.getAttribute('data-angle'));
+                petal.style.setProperty('--angle', angle + 'deg');
+                petal.style.setProperty('--i', index);
+                // Adjust z-index based on angle to simulate overlapping
+                // Ensure z-index is positive
+                const radians = angle * (Math.PI / 180);
+                const z = Math.round(Math.sin(radians) * 10) + 10; // Range 0-20
+                petal.style.setProperty('--z-index', z);
+            });
+
+            // Add click event listener to each petal for additional animations
+            //petals.forEach((petal) => {
+                //petal.addEventListener('click', () => {
+                    //// Toggle a class that triggers a rotation animation
+                    //petal.classList.toggle('clicked');
+                //});
+            //});
+            center.addEventListener('click', () => {
+                petals.forEach((petal) => {
+                    petal.classList.toggle('clicked');
+                    setTimeout(() => {
+                        petal.classList.toggle('clicked');
+                    }, 500)
+                })
+            })
+        });
+    </script>
+</body>
+</html>
